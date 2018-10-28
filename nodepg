@@ -1,0 +1,50 @@
+const { Client } = require('pg')
+
+
+var client = new Client({
+  user: 'postgres',
+  host: '127.0.0.1',
+  database: 'test1',
+  password: 'pw',
+  port: 5432,
+})
+client.connect()
+
+client.query('SELECT datname FROM pg_database', (err, res) => {
+//  console.log(err ? err.stack : res.rows[1].datname)
+  client.end()
+  for (var i = 0; i < res.rows.length; i++) {
+//  console.log(res.rows[i].datname)
+  };
+  db(res);
+})
+
+function db(result){
+//  console.log(result.rows[1].datname);
+for (var i = 0; i < result.rows.length; i++) {
+  if (result.rows[i].datname != 'template0'){
+   client = new Client({
+    user: 'postgres',
+    host: '127.0.0.1',
+    database: result.rows[i].datname,
+    password: 'postgres',
+    port: 5432,
+  })
+
+  client.connect()
+
+  client.query('SELECT * FROM table', (err, res) => {
+    if (res !=undefined){
+  client.query('Create table ttt', (err2, res2) => {})
+
+    console.log(err ? err.stack : res.rows[0])
+
+    for (var i = 0; i < res.rows.length; i++) {
+    console.log(res.rows[i])
+  };
+    //client.end();
+}
+})
+}}
+
+}
