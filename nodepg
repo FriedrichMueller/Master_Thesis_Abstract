@@ -80,4 +80,118 @@ $layersList.sortable({
     }
 });
 
+
+--Issues
+
+
+Issue Internet Explorer
+-- update substrings with no end l. 1166
+
+
+Issue menue available
+-- line 1359 display none correct?
+-- $('#smm-toggle-layerControl').trigger( "click" );
+
+--color
+$( "#smm-toggle-layerControl" ).css('background-color', '#3f689c');
+
+add color rgb(128, 128, 128); for grey
+
+
+-- erase console.logs
+
+
+-- change === to ==
+UIController.prototype.checkLayerControlVisibility7 = function() {
+console.log("logt");
+
+  $('.layerDiv>div').each(function (item) {
+    console.log("logt2"+this.style.backgroundColor);
+
+      var id=$("#"+this.id).parent().attr('id').substring(3);
+      var id_div=$("#"+this.id).parent().attr('id')
+      if (this.style.backgroundColor=="grey"){
+        this.parentElement.style.color="lightgrey";
+        $('#l'+id).prop( "disabled", true );
+        $('#l'+id).css( 'cursor', 'not-allowed' );
+        //$('#'+id_div).one().append("<span style='margin-top:3px;margin-left:5px;margin-bottom:7px'>(inactive)</span>");
+        console.log(this.id);
+        if (this.id=="visibilitySwitchOSMLayer"){
+            //this.parentElement.style.color="lightgrey";
+              console.log(this.parentElement.innerHTML);
+            $('#osmVisibilitySelector_lc').prop( "disabled", true );
+            $('#osmVisibilitySelector_lc').css( 'cursor', 'not-allowed' );
+          }
+        } else{
+          if ( this.parentElement.style.color==="lightgrey"){
+              var id=$("#"+this.id).parent().attr('id').substring(3);
+              var id_div=$("#"+this.id).parent().attr('id');
+              this.parentElement.style.color="white";
+              $('#l'+id).prop( "disabled", false );
+              $('#l'+id).css( 'cursor', 'pointer' );
+              $('#osmVisibilitySelector_lc').prop( "disabled", false );
+              $('#osmVisibilitySelector_lc').css( 'cursor', 'pointer' );
+          }
+    }
+  });
+}
+
+
+
+UIController.prototype.checkLayerControlVisibility8 = function() {
+  $(".layerMove").each(function(index, item){
+  var id=$(this).parent().attr('id').substring(3);
+  var id_div=$(this).parent().attr('id');
+  console.log(id+" "+id_div);
+
+
+  if (item.innerHTML=="OSM-Basemap"&& layerController.osmLayer.getVisible()===false){
+      item.style.color="lightgrey";
+
+      $('#osmVisibilitySelector_lc').prop( "disabled", true );
+      $('#osmVisibilitySelector_lc').css( 'cursor', 'not-allowed' );
+    }
+    if ( item.innerHTML=="OSM-Basemap"&& layerController.osmLayer.getVisible()===true){
+        item.style.color="white";
+        $('#osmVisibilitySelector_lc').prop( "disabled", false );
+        $('#osmVisibilitySelector_lc').css( 'cursor', 'pointer' );
+    }
+
+
+
+layerController.projectLayers.getLayers().forEach(function(layer) {
+console.log(layer.getVisible());
+
+  if (item.innerHTML==layer.get('title') && layer.getVisible()===false) {
+      item.style.color="lightgrey";
+      $('#l'+id).prop( "disabled", true );
+      $('#l'+id).css( 'cursor', 'not-allowed' );
+console.log(item.innerHTML+"iddd");
+
+      } else{
+        if ( item.innerHTML==layer.get('title')&& layer.getVisible()===true){
+            item.style.color="white";
+            $('#l'+id).prop( "disabled", false );
+            $('#l'+id).css( 'cursor', 'pointer' );
+        }
+
+    }
+
+  });
+});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
